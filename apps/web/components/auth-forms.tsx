@@ -1,15 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { authClient } from "../lib/auth-client";
 
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+interface SignUpFormData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, handleSubmit } = useForm<LoginFormData>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleEmailSignIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
       await authClient.signIn.email({
@@ -61,17 +71,15 @@ export function LoginForm() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit((data) => handleEmailSignIn(data.email, data.password))} className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-medium">
             Email
           </label>
           <input
+            {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
             id="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           />
         </div>
@@ -80,11 +88,9 @@ export function LoginForm() {
             Password
           </label>
           <input
+            {...register("password", { required: true, minLength: 8 })}
             id="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           />
         </div>
@@ -101,13 +107,10 @@ export function LoginForm() {
 }
 
 export function SignUpForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const { register, handleSubmit } = useForm<SignUpFormData>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleEmailSignUp = async (email: string, password: string, name: string) => {
     setIsLoading(true);
     try {
       await authClient.signUp.email({
@@ -161,17 +164,15 @@ export function SignUpForm() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit((data) => handleEmailSignUp(data.email, data.password, data.name))} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium">
             Name
           </label>
           <input
+            {...register("name", { required: true, minLength: 3 })}
             id="name"
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           />
         </div>
@@ -180,11 +181,9 @@ export function SignUpForm() {
             Email
           </label>
           <input
+            {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
             id="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           />
         </div>
@@ -193,11 +192,9 @@ export function SignUpForm() {
             Password
           </label>
           <input
+            {...register("password", { required: true, minLength: 8 })}
             id="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           />
         </div>
