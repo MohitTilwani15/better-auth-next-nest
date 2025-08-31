@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2Icon } from "lucide-react";
+import Image from "next/image";
 
 interface LoginFormData {
   email: string;
@@ -58,7 +59,7 @@ export function LoginForm() {
         variant="outline"
         className="w-full"
       >
-        <img src="/google.svg" alt="Google" className="w-5 h-5" />
+        <Image src="/google.svg" alt="Google" width={20} height={20} />
         Sign in with Google
       </Button>
 
@@ -156,7 +157,7 @@ export function SignUpForm() {
         variant="outline"
         className="w-full"
       >
-        <img src="/google.svg" alt="Google" className="w-5 h-5" />
+        <Image src="/google.svg" alt="Google" width={20} height={20} />
         Sign up with Google
       </Button>
 
