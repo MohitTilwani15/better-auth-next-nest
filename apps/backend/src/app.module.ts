@@ -21,7 +21,14 @@ import { UsersModule } from './users/users.module';
           trustedOrigins: [configService.getOrThrow('FRONTEND_URL')],
           emailAndPassword: {
             enabled: true,
-          }
+          },
+          socialProviders: {
+            google: {
+              clientId: configService.getOrThrow('GOOGLE_CLIENT_ID'),
+              clientSecret: configService.getOrThrow('GOOGLE_CLIENT_SECRET'),
+              redirectURI: configService.getOrThrow('GOOGLE_REDIRECT_URI'),
+            },
+          },
         }),
       }),
       inject: [DATABASE_CONNECTION, ConfigService],
