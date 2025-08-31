@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { authClient } from "../lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Loader2Icon } from "lucide-react";
 
 interface LoginFormData {
@@ -77,9 +78,9 @@ export function LoginForm() {
 
       <form onSubmit={handleSubmit((data) => handleEmailSignIn(data.email, data.password))} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium">
+          <Label htmlFor="email">
             Email
-          </label>
+          </Label>
           <Input
             {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
             id="email"
@@ -89,9 +90,9 @@ export function LoginForm() {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium">
+          <Label htmlFor="password">
             Password
-          </label>
+          </Label>
           <Input
             {...register("password", { required: true, minLength: 8 })}
             id="password"
@@ -180,9 +181,9 @@ export function SignUpForm() {
 
       <form onSubmit={handleSubmit((data) => handleEmailSignUp(data.email, data.password, data.name))} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium">
+          <Label htmlFor="name">
             Name
-          </label>
+          </Label>
           <Input
             {...register("name", { required: true, minLength: 3 })}
             id="name"
@@ -192,9 +193,9 @@ export function SignUpForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium">
+          <Label htmlFor="email">
             Email
-          </label>
+          </Label>
           <Input
             {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
             id="email"
@@ -204,9 +205,9 @@ export function SignUpForm() {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium">
+          <Label htmlFor="password">
             Password
-          </label>
+          </Label>
           <Input
             {...register("password", { required: true, minLength: 8 })}
             id="password"
